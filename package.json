@@ -1,0 +1,23 @@
+{
+  "name": "preact-app",
+  "version": "1.0.0",
+  "description": "First preact app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --inline"
+  },
+  "author": "Lucas Gansberg",
+  "license": "MIT",
+  "dependencies": {
+    "preact": "^8.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.5.2",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}
