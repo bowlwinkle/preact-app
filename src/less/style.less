@@ -1,98 +1,208 @@
+@font: 'Overpass', sans-serif;
 
 html {
-    background-image: url("../../assets/darkBlur.PNG");
+    // background-image: url("../../assets/darkBlur.PNG");
     background-repeat: round;
     height: 100%;
 }
 
+.banner {
+    text-align: center;
+
+    .title {
+        opacity: 0;
+        font-size: 32pt;
+        color: black;
+        font-family: @font;
+        transition: opacity 0.8s color 0.8s;
+    }
+
+    &:hover {
+        .title {
+            color: white;
+            opacity: 0.8;
+        }
+    }
+
+    .children {
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #084B51;
+        width: 100vw;
+        height: 75vh;
+        opacity: 0.1;
+        transition: opacity 0.8s;
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0,0,0, 0.5);
+        }
+
+
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
 .cube-container {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     position: relative;
     perspective: 1000px;
     margin: auto;
-    top: 300px;
+    top: 80px;
 
     .cube {
         width: 100%;
         height: 100%;
         position: absolute;
         transform-style: preserve-3d;
-        transform: translateZ( -100px );
+        transform: translateZ(-150px);
         transition: transform 1s;
 
         .side {
             margin: 0;
-            width: 196px;
-            height: 196px;
+            width: 296px;
+            height: 296px;
             display: block;
             position: absolute;
-            border: 2px dashed #fff;
+            border: 2px dashed white;
 
-            .top-right-cube-line {
-                display: none;
-                width: 280px;
-                border: 3px solid #fff;
-                transform: translateX(81px) rotateZ(-45deg);
-                transform-origin: 200px 200px;
-            }
-
-            .bottom-left-cube-line {
-                display: none;
-                width: 280px;
-                border: 3px solid #fff;
-                transform: translateX(2px) rotateZ(45deg);
-                transform-origin: bottom left;
+            .cross {
+                stroke: white;
+                height: 100%;
+                width: 100%;
+                stroke-width: 8px;
             }
         }
 
-        .front  { transform: rotateY(   0deg ) translateZ( 100px ); }
-        .back   { transform: rotateX( 180deg ) translateZ( 100px ); }
-        .right  { transform: rotateY(  90deg ) translateZ( 100px ); }
-        .left   { transform: rotateY( -90deg ) translateZ( 100px ); }
-        .top    { transform: rotateX(  90deg ) translateZ( 100px ); }
-        .bottom { transform: rotateX( -90deg ) translateZ( 100px ); }
+        .front  {
+            transform: rotateY(   0deg ) translateZ( 150px );
+            // background-color: rgba(seagreen, green, darkblue, alpha)
+        }
+        .back   {
+            transform: rotateX( 180deg ) translateZ( 150px );
+        }
+        .right  { transform: rotateY(  90deg ) translateZ( 150px ); }
+        .left   { transform: rotateY( -90deg ) translateZ( 150px ); }
+        .top    { transform: rotateX(  90deg ) translateZ( 150px ); }
+        .bottom { transform: rotateX( -90deg ) translateZ( 150px ); }
     }
 
-    .cube.show-middle-front { transform: translateZ(-100px) rotateX(-225deg) rotateY(45deg) };
-    .cube.show-middle-back { transform: translateZ(-100px) rotateX(-45deg) rotateY(135deg) };
-    .cube.animate-middle-front {
-        animation: spin-middle-front 1s linear infinite;
-        -webkit-animation: spin-middle-front 2s linear infinite;
+    .cube.animate-front {
+        animation: spin-front 3s linear infinite;
+        -webkit-animation: spin-front 3s linear infinite;
     }
-    .cube.animate-middle-back {
-        animation: spin-middle-back 1s linear infinite;
-        -webkit-animation: spin-middle-back 2s linear infinite;
+    .cube.animate-back {
+        animation: spin-back 3s linear infinite;
+        -webkit-animation: spin-back 3s linear infinite;
     }
-    .cube.show-front  { transform: translateZ( -100px ) rotateY(    0deg ); }
-    .cube.show-back   { transform: translateZ( -100px ) rotateX( -180deg ); }
-    .cube.show-right  { transform: translateZ( -100px ) rotateY(  -90deg ); }
-    .cube.show-left   { transform: translateZ( -100px ) rotateY(   90deg ); }
-    .cube.show-top    { transform: translateZ( -100px ) rotateX(  -90deg ); }
-    .cube.show-bottom { transform: translateZ( -100px ) rotateX(   90deg ); }
+    .cube.animate-left {
+        animation: spin-left 3s linear infinite;
+        -webkit-animation: spin-left 3s linear infinite;
+    }
+    .cube.animate-right {
+        animation: spin-right 3s linear infinite;
+        -webkit-animation: spin-right 3s linear infinite;
+    }
+    .cube.animate-top {
+        animation: spin-top 3s linear infinite;
+        -webkit-animation: spin-top 3s linear infinite;
+    }
+    .cube.animate-bottom {
+        animation: spin-bottom 3s linear infinite;
+        -webkit-animation: spin-bottom 3s linear infinite;
+    }
 }
+
+@middle-front: translateZ(-150px) rotateX(145deg) rotateY(45deg);
+@middle-back: translateZ(-150px) rotateX(145deg) rotateY(225deg);
+// @middle-left: translateZ(-150px) rotateX(325deg) rotateY(-45deg);
+@middle-left: translateZ(-150px) rotateX(215deg) rotateY(45deg);
+@middle-right: translateZ(-150px) rotateX(145deg) rotateY(45deg);
+
+@middle-top: translateZ(-150px) rotateX(145deg) rotateY(45deg);
+@middle-bottom: translateZ(-150px) rotateX(145deg) rotateY(45deg);
 
 //Keyframe animations
-@keyframes spin-middle-back {
-  //0% { transform: translateZ( -100px ); }
-  20% { transform: translateZ(-100px) rotateX(-225deg) rotateY(45deg) };
-  100% { transform: translateZ(-100px) rotateX(-225deg) rotateY(45deg) };
+@keyframes spin-front {
+  0% { transform:  @middle-back};
+  40% { transform: @middle-front };
+  100% { transform: @middle-front };
 }
 
-@-webkit-keyframes spin-middle-back {
-  //0% { -webkit-transform: translateZ( -100px ); }
-  20% { transform: translateZ(-100px) rotateX(-225deg) rotateY(45deg) };
-  100% { transform: translateZ(-100px) rotateX(-225deg) rotateY(45deg) };
+@-webkit-keyframes spin-front {
+  0% { transform: @middle-back };
+  40% { transform: @middle-front };
+  100% { transform: @middle-front };
 }
 
-@keyframes spin-middle-back {
-  //0% { transform: translateZ( -100px ); }
-  20% { transform: translateZ(-100px) rotateX(-45deg) rotateY(135deg) };
-  100% { transform: translateZ(-100px) rotateX(-45deg) rotateY(135deg) };
+@keyframes spin-back {
+  0% { transform: @middle-front };
+  40% { transform: @middle-back };
+  100% { transform: @middle-back };
 }
 
-@-webkit-keyframes spin-middle-back {
- // 0% { -webkit-transform: translateZ( -100px ); }
-  20% { transform: translateZ(-100px) rotateX(-45deg) rotateY(135deg) };
-  100% { transform: translateZ(-100px) rotateX(-45deg) rotateY(135deg) };
+@-webkit-keyframes spin-back {
+ 0% { transform: @middle-front };
+  40% { transform: @middle-back };
+  100% { transform: @middle-back };
+}
+
+// Left & Right
+@keyframes spin-left {
+  0% { transform:  @middle-back};
+  40% { transform: @middle-left };
+  100% { transform: @middle-left };
+}
+
+@-webkit-keyframes spin-left {
+  0% { transform: @middle-back };
+  40% { transform: @middle-left };
+  100% { transform: @middle-left };
+}
+
+@keyframes spin-right {
+  0% { transform: @middle-left };
+  40% { transform: @middle-right };
+  100% { transform: @middle-right };
+}
+
+@-webkit-keyframes spin-right {
+ 0% { transform: @middle-left };
+  40% { transform: @middle-right };
+  100% { transform: @middle-right };
+}
+
+//Top & Bottom
+@keyframes spin-front {
+  0% { transform:  @middle-back};
+  40% { transform: @middle-front };
+  100% { transform: @middle-front };
+}
+
+@-webkit-keyframes spin-front {
+  0% { transform: @middle-back };
+  40% { transform: @middle-front };
+  100% { transform: @middle-front };
+}
+
+@keyframes spin-back {
+  0% { transform: @middle-front };
+  40% { transform: @middle-back };
+  100% { transform: @middle-back };
+}
+
+@-webkit-keyframes spin-back {
+ 0% { transform: @middle-front };
+  40% { transform: @middle-back };
+  100% { transform: @middle-back };
 }

@@ -2,6 +2,7 @@ import {h} from "preact";
 import User from "./user.jsx";
 import Mountain from "../../assets/small-dark-mountain.png";
 import CubeLoader from "./cube-loader.jsx";
+import Banner from "./banner.jsx";
 
 const users = [
     {
@@ -23,7 +24,9 @@ const users = [
 
 export default () => (
     <div class="main">
-       <CubeLoader/> 
+       <Banner overlay="true" title="Time is a flat square">
+            <CubeLoader/>
+       </Banner>
     </div>
 );
 

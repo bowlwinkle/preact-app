@@ -1,22 +1,24 @@
 import {h, Component} from "preact";
 
 const CUBE_POSITIONS = {
-    front: "animate-middle-front",
-    back: "animate-middle-back"
+    left: "animate-left",
+    right: "animate-right",
+    front: "animate-front",
+    back: "animate-back"
 };
 
 export default class CubeLoader extends Component {
     constructor() {
 		super();
-		
+
 		this.state = {
-			position: CUBE_POSITIONS.front,
+			position: CUBE_POSITIONS.left,
             intervalID: undefined
 		};
 	}
 
     componentDidMount() {
-        this.state.intervalID = setInterval(this.flipCube.bind(this), 1000);
+        this.state.intervalID = setInterval(this.flipCube.bind(this), 3000);
     }
 
     componentWillUnmount() {
@@ -26,11 +28,16 @@ export default class CubeLoader extends Component {
     }
 
     flipCube() {
-        if (this.state.position == CUBE_POSITIONS.front) {
-            this.setState({position: CUBE_POSITIONS.back});
+        let values = Object.values(CUBE_POSITIONS);
+        let index = values.indexOf(this.state.position);
+
+        if (index >= (values.length - 1)) {
+            index = 0;
         } else {
-            this.setState({position: CUBE_POSITIONS.front});
+            index++;
         }
+
+        this.setState({position: values[index]});
     }
 
     render() {
@@ -38,28 +45,40 @@ export default class CubeLoader extends Component {
             <div class="cube-container">
                 <div class={`cube ${this.state.position}`}>
                     <div class="side front">
-                        <div class="top-right-cube-line"/>
-                        <div class="bottom-left-cube-line"/>
+                        <svg class="cross">
+                            <line x1="0" y1="0" x2="100%" y2="100%"/>
+                            <line x1="100%" y1="0" x2="0" y2="100%"/>
+                        </svg>
                     </div>
                     <div class="side back">
-                        <div class="top-right-cube-line"/>
-                        <div class="bottom-left-cube-line"/>
+                        <svg class="cross">
+                            <line x1="0" y1="0" x2="100%" y2="100%"/>
+                            <line x1="100%" y1="0" x2="0" y2="100%"/>
+                        </svg>
                     </div>
                     <div class="side top">
-                        <div class="top-right-cube-line"/>
-                        <div class="bottom-left-cube-line"/>
+                        <svg class="cross">
+                            <line x1="0" y1="0" x2="100%" y2="100%"/>
+                            <line x1="100%" y1="0" x2="0" y2="100%"/>
+                        </svg>
                     </div>
                     <div class="side bottom">
-                        <div class="top-right-cube-line"/>
-                        <div class="bottom-left-cube-line"/>
+                        <svg class="cross">
+                            <line x1="0" y1="0" x2="100%" y2="100%"/>
+                            <line x1="100%" y1="0" x2="0" y2="100%"/>
+                        </svg>
                     </div>
                     <div class="side left">
-                        <div class="top-right-cube-line"/>
-                        <div class="bottom-left-cube-line"/>
+                        <svg class="cross">
+                            <line x1="0" y1="0" x2="100%" y2="100%"/>
+                            <line x1="100%" y1="0" x2="0" y2="100%"/>
+                        </svg>
                     </div>
                     <div class="side right">
-                        <div class="top-right-cube-line"/>
-                        <div class="bottom-left-cube-line"/>
+                        <svg class="cross">
+                            <line x1="0" y1="0" x2="100%" y2="100%"/>
+                            <line x1="100%" y1="0" x2="0" y2="100%"/>
+                        </svg>
                     </div>
                 </div>
             </div>
