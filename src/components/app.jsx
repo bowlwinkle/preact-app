@@ -1,5 +1,7 @@
 import {h} from "preact";
 import User from "./user.jsx";
+import Mountain from "../../assets/small-dark-mountain.png";
+import CubeLoader from "./cube-loader.jsx";
 
 const users = [
     {
@@ -12,11 +14,17 @@ const users = [
     }
 ]
 
-export function App() {
-    return <div class="app">
-                <h1>Hello World</h1>
-                {users.map(user => <User {...user} key={user.name}/>)}
-            </div>
-};
+// export function App() {
+//     return <div class="app">
+//                 <h1>Hello World</h1>
+//                 {users.map(user => <User {...user} key={user.name}/>)}
+//             </div>
+// };
 
-export default App;
+export default () => (
+    <div class="main">
+       <CubeLoader/> 
+    </div>
+);
+
+//export default App;
