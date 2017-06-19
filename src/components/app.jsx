@@ -1,33 +1,44 @@
-import {h} from "preact";
-import User from "./user.jsx";
-import Mountain from "../../assets/small-dark-mountain.png";
+import {h, Component} from "preact";
 import CubeLoader from "./cube-loader.jsx";
 import Banner from "./banner.jsx";
+import Mountain from "../../assets/mountain.jpeg";
+import Space from "../../assets/space-flashlight.jpeg";
+import Clock from "../../assets/clock.jpeg";
 
-const users = [
-    {
-        name: "Lucas Gansberg",
-        image: "https://media.licdn.com/mpr/mpr/shrinknp_100_100/AAEAAQAAAAAAAAUlAAAAJDE5MjBlNjE2LThkNDYtNDQ4YS05ZmQ3LTg3YmJiY2E4MTQzMQ.jpg"
-    },
-    {
-        name: "Balaji",
-        image: "https://media.licdn.com/media/AAEAAQAAAAAAAAXIAAAAJGJmNzc0Zjc1LTRkMGQtNDU4NS1hMzE4LWMxZTBhNGI1NjUzZQ.jpg"
+class App extends Component {
+    constructor() {
+		super();
+
+		this.state = {
+			cubeEnabled: false
+		};
+	}
+
+    render (props, state) {
+        return (<div class="main" >
+                    <Banner enabled={this.state.cubeEnabled}
+                            overlay="true"
+                            title1="We are what we repeatedly do. Thus, perfection is not and act, but a habit..."
+                            title2="Time is a flat cube!"
+                            onMouseEnter={() => {
+                                    if (!this.state.cubeEnabled) {
+                                        this.setState({cubeEnabled: true})
+                                    }
+                                }}
+                            onMouseOut={() => {
+                                    if (this.state.cubeEnabled) {
+                                        this.setState({cubeEnabled: false})
+                                    }
+                                }}>
+                                <CubeLoader enabled={state.cubeEnabled}/>
+                    </Banner>
+                    <div class="images">
+                            <img class="slide" src={Space} alt="Space"/>
+                            <img class="slide" src={Clock} alt="Time"/>
+                            <img class="slide" src={Mountain} alt="Mountain"/>
+                    </div>
+                </div>);
     }
-]
+};
 
-// export function App() {
-//     return <div class="app">
-//                 <h1>Hello World</h1>
-//                 {users.map(user => <User {...user} key={user.name}/>)}
-//             </div>
-// };
-
-export default () => (
-    <div class="main">
-       <Banner overlay="true" title="Time is a flat square">
-            <CubeLoader/>
-       </Banner>
-    </div>
-);
-
-//export default App;
+export default App;

@@ -34,9 +34,9 @@ module.exports = {
                 }]
             },
             {
-                test: /\.png/i,
+                test: /\.png|.jpeg/i,
                 loader: "file-loader?name=../server/static/assets/[name].[ext]",
-                query: {    
+                query: {
                     useRelativePath: process.env.NODE_ENV === "production"
                 }
             },

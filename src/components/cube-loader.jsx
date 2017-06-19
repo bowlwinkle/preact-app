@@ -12,18 +12,43 @@ export default class CubeLoader extends Component {
 		super();
 
 		this.state = {
-			position: CUBE_POSITIONS.left,
+			position: "",
             intervalID: undefined
 		};
+
+        this.enableCube = this.enableCube.bind(this);
+        this.disableCube = this.disableCube.bind(this);
 	}
 
-    componentDidMount() {
-        this.state.intervalID = setInterval(this.flipCube.bind(this), 3000);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.enabled != this.props.enabled) {
+            if (nextProps.enabled) {
+                this.enableCube();
+            } else {
+                this.disableCube();
+            }
+        }
     }
 
     componentWillUnmount() {
         if (this.state.intervalID) {
             clearInterval(this.state.intervalID);
+        }
+    }
+
+    enableCube() {
+        if (this.state.intervalID) {
+            clearInterval(this.state.intervalID);
+        }
+
+        let id = setInterval(this.flipCube.bind(this), 3000);
+        this.setState({position: CUBE_POSITIONS.left, intervalID: id});
+    }
+
+    disableCube() {
+        if (this.state.intervalID){
+            clearInterval(this.state.intervalID);
+            this.setState({intervalID: undefined, position: ""});
         }
     }
 

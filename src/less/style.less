@@ -4,21 +4,75 @@ html {
     // background-image: url("../../assets/darkBlur.PNG");
     background-repeat: round;
     height: 100%;
+    // display: grid;
+    // grid-row: 2;    /* Place item in the second row. */
+    // grid-column: 3;
+    // grid-template-areas:
+    //     "banner banner banner"
+    //     "slide slide slide";
+    // grid-template-columns: auto auto auto;
+    // grid-template-rows: 500px calc(~"100vh - 500px");
+    // grid-gap: 10px;
+}
+
+@media (max-width: 600px) {
+    .banner > .title1 {font-size: 24pt;}
+    .banner > .title2 {font-size: 18pt;}
+}
+
+@media (max-width: 800px) {
+    .title1 {font-size: 30pt;}
+    .title2 {font-size: 20pt;}
+}
+
+@media (min-width: 900px) {
+    .title1 {font-size: 36pt;}
+    .title2 {font-size: 30pt;}
+}
+
+.banner.hide {
+    height: 0;
+
+    .children {
+        will-change: height;
+        transition: height 0.5s;
+        height: 0;
+    }
 }
 
 .banner {
+    position: absolute;
+    height: 60vh;
+    top: 0;
+    left: 0;
+    will-change: height;
+    grid-area: banner;
     text-align: center;
+    transition: height 0.5s;
 
-    .title {
+
+    .title1 {
+        padding: 0 10%;
+        pointer-events: none;
+        font-family: @font;
+        opacity: 0.7;
+        transition: opacity 0.8s;
+    }
+
+    .title2 {
+        pointer-events: none;
         opacity: 0;
-        font-size: 32pt;
         color: black;
         font-family: @font;
         transition: opacity 0.8s color 0.8s;
     }
 
     &:hover {
-        .title {
+        .title1 {
+            opacity: 0;
+        }
+
+        .title2 {
             color: white;
             opacity: 0.8;
         }
@@ -31,9 +85,10 @@ html {
         left: 0;
         background-color: #084B51;
         width: 100vw;
-        height: 75vh;
+        height: 60vh;
         opacity: 0.1;
         transition: opacity 0.8s;
+        border-bottom: 5px solid black;
 
         .overlay {
             position: absolute;
@@ -44,8 +99,6 @@ html {
             background-color: rgba(0,0,0, 0.5);
         }
 
-
-
         &:hover {
             opacity: 1;
         }
@@ -53,8 +106,8 @@ html {
 }
 
 .cube-container {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     position: relative;
     perspective: 1000px;
     margin: auto;
@@ -65,13 +118,13 @@ html {
         height: 100%;
         position: absolute;
         transform-style: preserve-3d;
-        transform: translateZ(-150px);
+        transform: translateZ(-100px) rotateX(215deg) rotateY(45deg);
         transition: transform 1s;
 
         .side {
             margin: 0;
-            width: 296px;
-            height: 296px;
+            width: 196px;
+            height: 196px;
             display: block;
             position: absolute;
             border: 2px dashed white;
@@ -81,20 +134,22 @@ html {
                 height: 100%;
                 width: 100%;
                 stroke-width: 8px;
+                // stroke-dasharray: 100;
+                // animation: dash 5s linear infinite;
             }
         }
 
         .front  {
-            transform: rotateY(   0deg ) translateZ( 150px );
+            transform: rotateY(   0deg ) translateZ( 100px );
             // background-color: rgba(seagreen, green, darkblue, alpha)
         }
         .back   {
-            transform: rotateX( 180deg ) translateZ( 150px );
+            transform: rotateX( 180deg ) translateZ( 100px );
         }
-        .right  { transform: rotateY(  90deg ) translateZ( 150px ); }
-        .left   { transform: rotateY( -90deg ) translateZ( 150px ); }
-        .top    { transform: rotateX(  90deg ) translateZ( 150px ); }
-        .bottom { transform: rotateX( -90deg ) translateZ( 150px ); }
+        .right  { transform: rotateY(  90deg ) translateZ( 100px ); }
+        .left   { transform: rotateY( -90deg ) translateZ( 100px ); }
+        .top    { transform: rotateX(  90deg ) translateZ( 100px ); }
+        .bottom { transform: rotateX( -90deg ) translateZ( 100px ); }
     }
 
     .cube.animate-front {
@@ -123,14 +178,42 @@ html {
     }
 }
 
-@middle-front: translateZ(-150px) rotateX(145deg) rotateY(45deg);
-@middle-back: translateZ(-150px) rotateX(145deg) rotateY(225deg);
-// @middle-left: translateZ(-150px) rotateX(325deg) rotateY(-45deg);
-@middle-left: translateZ(-150px) rotateX(215deg) rotateY(45deg);
-@middle-right: translateZ(-150px) rotateX(145deg) rotateY(45deg);
+.images {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100VW;
+    height: 40vh;
+    background-color: #17171f;
+    left: 0;
 
-@middle-top: translateZ(-150px) rotateX(145deg) rotateY(45deg);
-@middle-bottom: translateZ(-150px) rotateX(145deg) rotateY(45deg);
+    .slide {
+        grid-area: slide;
+        height: calc(~"100vh - 450px");
+        width: calc(~"(100vw / 3.1) - 50px");
+        padding: 20px;
+        margin: 20px 15px auto auto;
+
+        &:hover {
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)
+        }
+    }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+
+@middle-front: translateZ(-100px) rotateX(145deg) rotateY(45deg);
+@middle-back: translateZ(-100px) rotateX(145deg) rotateY(225deg);
+// @middle-left: translateZ(-100px) rotateX(325deg) rotateY(-45deg);
+@middle-left: translateZ(-100px) rotateX(215deg) rotateY(45deg);
+@middle-right: translateZ(-100px) rotateX(145deg) rotateY(45deg);
+
+@middle-top: translateZ(-100px) rotateX(145deg) rotateY(45deg);
+@middle-bottom: translateZ(-100px) rotateX(145deg) rotateY(45deg);
 
 //Keyframe animations
 @keyframes spin-front {
